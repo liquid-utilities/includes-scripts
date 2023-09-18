@@ -124,7 +124,7 @@ within the chosen Layout file, for example if utilizing the
 similar to...
 
 
-`_layouts/base.html`
+`_includes/head.html`
 
 
 ```liquid
