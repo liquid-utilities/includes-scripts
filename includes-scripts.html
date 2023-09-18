@@ -1,0 +1,74 @@
+{% capture workspace__includes_scripts %}
+{% comment %}
+  ---
+  vim: filetype=liquid
+  author: S0AndS0
+  license: AGPL-3.0
+  source: https://github.com/liquid-utilities/includes-scripts
+  ---
+{% endcomment %}
+{% if page.scripts %}
+  {% for workspace__includes_scripts__script in page.scripts %}
+    {%- unless workspace__includes_scripts__script.src -%}{%- continue -%}{%- endunless -%}
+
+    {%- assign workspace__includes_scripts__src = workspace__includes_scripts__script.src -%}
+    {%- unless workspace__includes_scripts__src contains "https"-%}
+      {%- assign workspace__includes_scripts__src = workspace__includes_scripts__script.src | relative_url -%}
+    {%- endunless -%}
+
+    {% capture script_attributes %}src="{{ workspace__includes_scripts__src }}"{% endcapture %}
+
+    {% if workspace__includes_scripts__script.type %}
+      {% capture script_attributes %}{{ script_attributes }} type="{{ workspace__includes_scripts__script.type }}"{% endcapture %}
+    {% else %}
+      {% capture script_attributes %}{{ script_attributes }} type="text/javascript"{% endcapture %}
+    {% endif %}
+
+    {% if workspace__includes_scripts__script.blocking %}
+      {% capture script_attributes %}{{ script_attributes }} blocking="{{ workspace__includes_scripts__script.blocking | join: ' ' }}"{% endcapture %}
+    {% endif %}
+
+    {% if workspace__includes_scripts__script.integrity %}
+      {% capture script_attributes %}{{ script_attributes }} integrity="{{ workspace__includes_scripts__script.integrity | join: ' ' }}"{% endcapture %}
+    {% endif %}
+
+    {% if workspace__includes_scripts__script.fetchpriority %}
+      {% capture script_attributes %}{{ script_attributes }} fetchpriority="{{ workspace__includes_scripts__script.fetchpriority }}"{% endcapture %}
+    {% endif %}
+
+    {% if workspace__includes_scripts__script.charset %}
+      {% capture script_attributes %}{{ script_attributes }} charset="{{ workspace__includes_scripts__script.charset }}"{% endcapture %}
+    {% endif %}
+
+    {% if workspace__includes_scripts__script.language %}
+      {% capture script_attributes %}{{ script_attributes }} language="{{ workspace__includes_scripts__script.language }}"{% endcapture %}
+    {% endif %}
+
+    {% if workspace__includes_scripts__script.crossorigin %}
+      {% capture script_attributes %}{{ script_attributes }} crossorigin="{{ workspace__includes_scripts__script.crossorigin }}"{% endcapture %}
+    {% endif %}
+
+    {% if workspace__includes_scripts__script.referrerpolicy %}
+      {% capture script_attributes %}{{ script_attributes }} referrerpolicy="{{ workspace__includes_scripts__script.referrerpolicy }}"{% endcapture %}
+    {% endif %}
+
+    {% comment %}
+      Boolean attributes
+    {% endcomment %}
+
+    {% if workspace__includes_scripts__script.async %}
+      {% capture script_attributes %}{{ script_attributes }} async{% endcapture %}
+    {% endif %}
+
+    {% if workspace__includes_scripts__script.defer %}
+      {% capture script_attributes %}{{ script_attributes }} defer{% endcapture %}
+    {% endif %}
+
+    {% if workspace__includes_scripts__script.nomodule %}
+      {% capture script_attributes %}{{ script_attributes }} nomodule{% endcapture %}
+    {% endif %}
+
+    <script {{ script_attributes }}></script>
+  {% endfor %}
+{%- endif -%}
+{% endcapture %}{{ workspace__includes_scripts | strip }}{% assign workspace__includes_scripts = nil %}

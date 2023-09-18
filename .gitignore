@@ -1,0 +1,6 @@
+## Vim (BTW™)
+*.swp
+*.swo
+
+## Development artifacts
+dev
